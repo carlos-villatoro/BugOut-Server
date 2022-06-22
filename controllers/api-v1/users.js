@@ -2,6 +2,7 @@ const router = require('express').Router()
 const db = require('../../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const authLockedRoute = require('./authLockedRoute')
 
 // POST /users/register -- CREATE a new user
 router.post('/register', async (req, res) => {
@@ -95,7 +96,8 @@ router.post('/login', async (req, res) => {
 })
 
 // GET /users/auth-locked -- checks users credentials and only send back privlaged information if the user is logged in properly
-router.get('/auth-locked', (req, res) => {
+router.get('/auth-locked', authLockedRoute, (req, res) => {
+	console.log('current user is:', res.locals.user)
 	res.json({ msg: 'welcome to the secret auth-locked route 👋' })
 })
 
