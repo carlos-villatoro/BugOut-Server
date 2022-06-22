@@ -15,6 +15,8 @@ app.get('/', (req, res) => {
 	res.json({ msg: 'welcome to the backed! its good to be back ☠️' })
 })
 
+app.use('/api-v1/users', require('./controllers/api-v1/users'))
+
 // listen on a port
 app.listen(PORT, () => {
 	console.log(`is the PORT ${PORT} that I hear? 🌽`)
