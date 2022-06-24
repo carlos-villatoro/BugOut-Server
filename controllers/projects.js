@@ -4,7 +4,14 @@ const db = require('../models')
 
 //GET /projects -- gets all the projects 
 router.get('/', async (req, res) => {
-    res.send(' get /projects')
+    try {
+        //find all projects in the db
+        const findAllProjects = await db.Project.find({})
+        //send them to the client
+        res.json(findAllProjects)
+    } catch (error) {
+        res.status(500).json({ msg: 'server error' })
+    }
 })
 
 //POST /projects -- creates a project
