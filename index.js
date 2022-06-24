@@ -6,7 +6,7 @@ const cors = require('cors')
 
 // app config/middlewares
 const app = express()
-const PORT =  process.env.PORT || 8000
+const PORT = process.env.PORT || 8000
 app.use(cors())
 app.use(express.json()) //json req.bodies
 
@@ -32,9 +32,9 @@ app.get('/', myMiddleware, (req, res) => {
 	console.log(res.locals.myData)
 })
 
-app.use('/users', require('./controllers/users'))
-app.use('/bugs', require('./controllers/bugs'))
-app.use('/projects', require('./controllers/projects'))
+app.use('/users', require('./controllers/users.js'))
+app.use('/bugs', require('./controllers/bugs.js'))
+app.use('/projects', require('./controllers/projects.js'))
 
 // listen on a port
 app.listen(PORT, () => {

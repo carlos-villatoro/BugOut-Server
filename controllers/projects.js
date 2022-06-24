@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { model } = require('mongoose')
 const db = require('../models')
 
 //GET /projects -- gets all the projects 
@@ -7,7 +8,7 @@ router.get('/', async (req, res) => {
 })
 
 //POST /projects -- creates a project
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
     res.send('creates a project')
 })
 
@@ -30,3 +31,5 @@ router.delete('/:id', async (req, res) => {
 router.post('/:id/bugs', async (req, res) => {
     res.send('create a /projects/:id/bugs')
 })
+
+module.exports = router

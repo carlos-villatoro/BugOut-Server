@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
-const db = require('../../models')
+const db = require('../models')
 
 const authLockedRoute = async (req, res, next) => {
-	try {	
+	try {
 		// jwt from the client sent in the headers
 		const authHeader = req.headers.authorization
 		// decode the jwt -- will throw to the catch if the signature is invalid
