@@ -9,7 +9,13 @@ router.get('/', async (req, res) => {
 
 //POST /projects -- creates a project
 router.post('/', async (req, res) => {
-    res.send('creates a project')
+    try {
+        //create the project in the db
+        const newProject = await db.Project.create(req.body)
+        res.status(201).json(newProject)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 //GET /projects/:id -- gets a specific project
