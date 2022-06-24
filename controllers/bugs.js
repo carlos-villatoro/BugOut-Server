@@ -10,3 +10,5 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', (req, res) => {
     res.send('delete a /bugs/:id')
 })
+
+module.exports = router

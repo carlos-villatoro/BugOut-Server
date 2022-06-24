@@ -98,10 +98,15 @@ router.post('/login', async (req, res) => {
 
 })
 
+
 // GET /users/auth-locked -- checks users credentials and only send back privileged information if the user is logged in properly
+
+
+
 router.get('/profile', authLockedRoute, (req, res) => {
 	console.log('current user is:', res.locals.user)
 	res.json({ msg: 'welcome to the secret auth-locked route 👋' })
 })
+
 
 module.exports = router
