@@ -30,6 +30,7 @@ const myMiddleware = (req, res, next) => {
 app.get('/', myMiddleware, (req, res) => {
 	res.json({ msg: 'welcome to the backed! its good to be back ☠️' })
 	console.log(res.locals.myData)
+	res.redirect('/users/login')
 })
 
 app.use('/users', require('./controllers/users.js'))
