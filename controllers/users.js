@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const db = require('../../models')
+const db = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const authLockedRoute = require('./authLockedRoute')
+const authLockedRoute = require('./api-v1/authLockedRoute')
 
 // POST /users/register -- CREATE a new user
 router.post('/register', async (req, res) => {
