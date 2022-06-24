@@ -25,7 +25,8 @@ const BugSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        required: true
+        required: true,
+        default: 'Not Started'
     }
 }, {
     timestamps: true
