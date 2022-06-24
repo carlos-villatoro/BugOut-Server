@@ -25,7 +25,22 @@ router.put('/:id', async (req, res) => {
 
 //DELETE /bugs/:id -- delete a specific bug
 router.delete('/:id', (req, res) => {
-    res.send('delete a /bugs/:id')
+    // res.send('delete a /bugs/:id')
+    try {
+        // get id of specific bug from url params
+        const id = req.params.id
+        // remove that comment from the db
+        await db.Bug.findByIdAndDelete(id)
+        // send no content status
+        res.sendStatus(204)
+
+        console.log("you have successfully deleted the bug")
+    } catch (error) {
+        if(error.name === "ValidationError"){
+            res.status(400).json({msg: error.message})
+        }
+        res.status(500).json({msg: 'server error'})
+    }
 })
 
 module.exports = router
