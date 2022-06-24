@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 const BugSchema = new mongoose.Schema({
     name: {
@@ -25,7 +25,8 @@ const BugSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        required: true
+        required: true,
+        default: 'Not Started'
     }
 }, {
     timestamps: true
