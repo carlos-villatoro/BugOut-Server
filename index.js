@@ -4,7 +4,7 @@ require('./models') // connect to the db
 const express = require('express')
 const cors = require('cors')
 
-// app config/middlewares
+// app config/middleware
 const app = express()
 const PORT = process.env.PORT || 8000
 app.use(cors())
@@ -26,7 +26,7 @@ const myMiddleware = (req, res, next) => {
 }
 
 // routes and controllers
-// route specific middlware
+// route specific middleware
 app.get('/', myMiddleware, (req, res) => {
 	res.json({ msg: 'welcome to the backed! its good to be back ☠️' })
 	console.log(res.locals.myData)

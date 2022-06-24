@@ -27,7 +27,8 @@ router.post('/register', async (req, res) => {
 		const newUser = new db.User({
 			name: req.body.name,
 			email: req.body.email,
-			password: hashedPassword
+			password: hashedPassword,
+			role: req.body.role
 		})
 		await newUser.save()
 
@@ -36,6 +37,7 @@ router.post('/register', async (req, res) => {
 		const payload = {
 			name: newUser.name,
 			email: newUser.email,
+			role: newUser.role,
 			id: newUser.id
 		}
 		// sign the token and send it back
@@ -81,6 +83,7 @@ router.post('/login', async (req, res) => {
 		const payload = {
 			name: foundUser.name,
 			email: foundUser.email,
+			role: foundUser.role,
 			id: foundUser.id
 		}
 		// sign the jwt and send it back
@@ -95,7 +98,11 @@ router.post('/login', async (req, res) => {
 
 })
 
-// GET /users/auth-locked -- checks users credentials and only send back privlaged information if the user is logged in properly
+
+// GET /users/auth-locked -- checks users credentials and only send back privileged information if the user is logged in properly
+
+
+
 router.get('/profile', authLockedRoute, (req, res) => {
 	console.log('current user is:', res.locals.user)
 	res.json({ msg: 'welcome to the secret auth-locked route 👋' })
