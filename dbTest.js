@@ -3,10 +3,10 @@ const project = require('./models/project')
 
 // testing user CREATE
 // db.User.create({
-// 		name: 'grunt 2',
-// 		email: 'g2@g.com',
+// 		name: 'admin',
+// 		email: 'man@ger.com',
 // 		password: '1234',
-// 		role: "member"	
+// 		role: "manager"	
 // 	})
 // 	.then(user => {
 // 		console.log('what up test boi!!!', user)
@@ -14,24 +14,25 @@ const project = require('./models/project')
 // 	.catch(console.warn)
 
 // db.Project.create({
-// 		name: 'Project 2',
-// 		language: 'react',
-// 		description: '2nd project',
+// 		name: 'Project 3',
+// 		language: 'python',
+// 		description: '3rd project',
 // 		notes: 'hello',
-// 		priority: 4
+// 		priority: 5
 // 	})
 // 	.then(project => {
 // 		console.log(project)
 // 	})
 // 	.catch(console.warn)
+	
 const usersProjectsRel = async () => {
 	try {
-		const user = await db.User.findOne({id: "62b6249d74a4224e8bfb3feb"})
-		const project = await db.Project.findOne({id: "62b6262850a78d04a38e42d8"})
-		user.projects.push(project)
-		await user.save()
-		project.users.push(user)
-		await project.save()
+		const user = await db.User.findOne({id: "62b629adf35d9fc967affc73"}).populate({path: 'projects'})
+		const project = await db.Project.findOne({id: "62b629e9cd12d5a29b52189d"}).populate({path: 'users'})
+		// user.projects.push(project)
+		// await user.save()
+		// project.users.push(user)
+		// await project.save()
 		console.log(user, project)
 		
 	} catch (error) {
