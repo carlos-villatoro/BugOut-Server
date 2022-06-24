@@ -32,7 +32,9 @@ app.get('/', myMiddleware, (req, res) => {
 	console.log(res.locals.myData)
 })
 
-app.use('/api-v1/users', require('./controllers/api-v1/users'))
+app.use('/users', require('./controllers/users'))
+app.use('/bugs', require('./controllers/bugs'))
+app.use('/projects', require('./controllers/projects'))
 
 // listen on a port
 app.listen(PORT, () => {
