@@ -24,7 +24,7 @@ router.put('/:id', async (req, res) => {
 })
 
 //DELETE /bugs/:id -- delete a specific bug
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     // res.send('delete a /bugs/:id')
     try {
         // get id of specific bug from url params
