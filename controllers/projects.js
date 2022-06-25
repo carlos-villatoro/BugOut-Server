@@ -27,12 +27,29 @@ router.post('/', async (req, res) => {
 
 //GET /projects/:id -- gets a specific project
 router.get('/:id', async (req, res) => {
-    res.send('get /projects/:id')
+    try {
+        const findOneProject = await db.Project.findById(req.params.id)
+
+        res.json(findOneProject)
+    } catch (error) {
+
+    }
 })
 
 //PUT /project/:id -- edits a specific project
 router.put('/:id', async (req, res) => {
-    res.send('edit /projects/:id')
+    try {
+        //get id from the url params 
+        //search for the id in the db, and update using the req.body
+        const options = { new: true }
+        const updateProject = await db.Project.findByIdAndUpdate(req.params.id, req.body, options)
+
+        res.json(updateProject)
+    } catch (error) {
+        res.status(500).json({})
+    }
+
+
 })
 
 //DELETE /projects/:id -- deletes a specific project
