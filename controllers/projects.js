@@ -54,7 +54,13 @@ router.put('/:id', async (req, res) => {
 
 //DELETE /projects/:id -- deletes a specific project
 router.delete('/:id', async (req, res) => {
-    res.send('delete /projects/:id')
+    try {
+        const deleteProject = await db.Project.findByIdAndDelete(req.params.id)
+
+        res.sendStatus(204)
+    } catch (error) {
+        res.status(500).json({ msg: 'server error' })
+    }
 })
 
 //POST /projects/:id/bugs -- create a bug in a specific project 
