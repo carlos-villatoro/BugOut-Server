@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 //GET /projects/:id -- gets a specific project
 router.get('/:id', async (req, res) => {
     try {
-        const findOneProject = await db.Project.findById(req.params.id)
+        const findOneProject = await db.Project.findById(req.params.id).populate({ path: 'users' })
 
         res.json(findOneProject)
     } catch (error) {
