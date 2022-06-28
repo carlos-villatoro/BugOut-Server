@@ -65,7 +65,11 @@ router.delete('/:id', async (req, res) => {
 
 //POST /projects/:id/bugs -- create a bug in a specific project 
 router.post('/:id/bugs', async (req, res) => {
-    res.send('create a /projects/:id/bugs')
+    // find the project by id param
+
+    // create a new bug
+    const newBug = await db.Bug.create(req.body)
+    // add bug to project's bug relationship -- and save
 })
 
 module.exports = router
