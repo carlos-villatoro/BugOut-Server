@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
     try {
         //create the project in the db
         const newProject = await db.Project.create(req.body)
+        // show it to user
         res.status(201).json(newProject)
     } catch (error) {
         console.log(error)
@@ -28,11 +29,14 @@ router.post('/', async (req, res) => {
 //GET /projects/:id -- gets a specific project
 router.get('/:id', async (req, res) => {
     try {
-        const findOneProject = await db.Project.findById(req.params.id).populate({ path: 'users' })
-
+        // get specific project id from url params
+        const id = req.params.id
+        // find that specific project in the db using the id & all users assigned to it
+        const findOneProject = await db.Project.findById(id).populate({ path: 'users' })
+        // send project back to user
         res.json(findOneProject)
     } catch (error) {
-
+        res.status(500).json({msg: 'server error'})
     }
 })
 
@@ -40,13 +44,15 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         //get id from the url params 
-        //search for the id in the db, and update using the req.body
+        const id = req.params.id
+        // tell it to return the updated project
         const options = { new: true }
-        const updateProject = await db.Project.findByIdAndUpdate(req.params.id, req.body, options)
-
+        //search for the id in the db, and update using the req.body
+        const updateProject = await db.Project.findByIdAndUpdate(id, req.body, options)
+        // send updated project back to the user
         res.json(updateProject)
     } catch (error) {
-        res.status(500).json({})
+        res.status(500).json({msg: 'server error'})
     }
 
 
@@ -55,8 +61,11 @@ router.put('/:id', async (req, res) => {
 //DELETE /projects/:id -- deletes a specific project
 router.delete('/:id', async (req, res) => {
     try {
-        const deleteProject = await db.Project.findByIdAndDelete(req.params.id)
-
+        // get id of specific blog from url params
+        const id = req.params.id
+        // delete the project from the db
+        const deleteProject = await db.Project.findByIdAndDelete(id)
+        // send no content status
         res.sendStatus(204)
     } catch (error) {
         res.status(500).json({ msg: 'server error' })
@@ -65,11 +74,20 @@ router.delete('/:id', async (req, res) => {
 
 //POST /projects/:id/bugs -- create a bug in a specific project 
 router.post('/:id/bugs', async (req, res) => {
+    const id = req.params.id
     // find the project by id param
-
+    const project = await db.Project.findById(id).populate({ path: 'bugs' })
     // create a new bug
     const newBug = await db.Bug.create(req.body)
-    // add bug to project's bug relationship -- and save
+    // add project to bug's project relationship
+    newBug.project = project.id
+    // add bug to project's bug relationship 
+    project.bugs.push(newBug)
+    // -- and save both
+    await project.save()
+    await newBug.save()
+    // send back project with bug added
+    res.status(201).json({newBug})
 })
 
 module.exports = router

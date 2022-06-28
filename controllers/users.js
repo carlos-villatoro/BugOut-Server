@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
 			role: req.body.role
 		})
 		await newUser.save()
-
+		console.log('new user registered')
 		// sign the user in by sending a valid jwt back
 		// create the jwt payload
 		const payload = {
