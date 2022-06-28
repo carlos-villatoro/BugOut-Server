@@ -26,15 +26,15 @@ const project = require('./models/project')
 // 	.catch(console.warn)
 
 //testing bug CREATE
-// db.Bug.create({
-// 	name: 'CSS',
-// 	notes: 'the nav bar is off center',
-// 	priority: 2
-// })
-// 	.then(bug => {
-// 		console.log("Bug!", bug)
-// 	})
-// 	.catch(console.warn)
+db.Bug.create({
+	name: 'test bug 3',
+	notes: 'the test bug is off the chain',
+	priority: 1
+})
+	.then(bug => {
+		console.log("Bug!", bug)
+	})
+	.catch(console.warn)
 
 
 const usersProjectsRel = async () => {
@@ -54,4 +54,4 @@ const usersProjectsRel = async () => {
 }
 
 
-usersProjectsRel()
+// usersProjectsRel()
