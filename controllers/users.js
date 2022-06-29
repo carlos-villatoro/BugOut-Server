@@ -113,7 +113,7 @@ router.get('/profile', authLockedRoute, async (req, res) => {
 	const userId = res.locals.user._id
 	// console.log(res.locals.user._id)
 	const user = await db.User.findById(userId).populate({path: 'projects'})
-	console.log(user)
+	// console.log(user)
 	res.json(user)
 })
 
