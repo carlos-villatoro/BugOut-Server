@@ -26,6 +26,10 @@ const ProjectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Bug'
     }],
+    manager: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

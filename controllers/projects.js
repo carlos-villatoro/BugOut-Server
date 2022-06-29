@@ -17,8 +17,28 @@ router.get('/', async (req, res) => {
 //POST /projects -- creates a project
 router.post('/', async (req, res) => {
     try {
+        // console.log(req.body)
         //create the project in the db
         const newProject = await db.Project.create(req.body)
+        console.log(req.body)
+        const assignedUsers = req.body.users
+        for (const user of assignedUsers) {
+            // console.log(user)
+            const foundUser = await db.User.findById({_id: user})
+            // console.log(foundUser)
+            foundUser.projects.push(newProject)
+            await foundUser.save()
+        }
+        const manager = req.body.manager
+        console.log(manager)
+        // const updatedUsers = assignedUsers.forEach(user=> {
+        //     const foundUser = db.User.findById({id: user})
+        //     foundUser.projects.push(newProject)
+        //     foundUser.save()
+        // })
+        // foreach >> const user[1] = user[1]
+        // db.user.findbyid( user[1])
+        
         // show it to user
         res.status(201).json(newProject)
     } catch (error) {
@@ -61,7 +81,7 @@ router.put('/:id', async (req, res) => {
 //DELETE /projects/:id -- deletes a specific project
 router.delete('/:id', async (req, res) => {
     try {
-        // get id of specific blog from url params
+        // get id of specific project from url params
         const id = req.params.id
         // delete the project from the db
         const deleteProject = await db.Project.findByIdAndDelete(id)

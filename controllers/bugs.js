@@ -19,11 +19,11 @@ router.put('/:id', async (req, res) => {
     try {
         // find bug id from the url params
         const id = req.params.id
-        // tell it to return the updated comment
+        // tell it to return the updated bug
         const options = {new: true}
-        // find specific comment using that id & updating using the req.body
+        // find specific bug using that id & updating using the req.body
         const updatedBug = await db.Bug.findByIdAndUpdate(id, req.body, options)
-        // send updated comment back to the user
+        // send updated bug back to the user
         res.json(updatedBug)
 
         console.log('you have successfully updated the bug')
@@ -41,7 +41,7 @@ router.delete('/:id', async (req, res) => {
     try {
         // get id of specific bug from url params
         const id = req.params.id
-        // remove that comment from the db
+        // remove that bug from the db
         await db.Bug.findByIdAndDelete(id)
         // send no content status
         res.sendStatus(204)
