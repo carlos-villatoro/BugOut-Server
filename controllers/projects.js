@@ -31,14 +31,9 @@ router.post('/', async (req, res) => {
         }
         const manager = req.body.manager
         console.log(manager)
-        // const updatedUsers = assignedUsers.forEach(user=> {
-        //     const foundUser = db.User.findById({id: user})
-        //     foundUser.projects.push(newProject)
-        //     foundUser.save()
-        // })
-        // foreach >> const user[1] = user[1]
-        // db.user.findbyid( user[1])
-        
+        const foundManager = await db.User.findById({_id: manager})
+        foundManager.projects.push(newProject)
+        await foundManager.save()
         // show it to user
         res.status(201).json(newProject)
     } catch (error) {

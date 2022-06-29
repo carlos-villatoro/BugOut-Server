@@ -11,7 +11,7 @@ const authLockedRoute = async (req, res, next) => {
 		const foundUser = await db.User.findById(decode.id)
 		// mount the user on the res.locals, so the downstream route has the logged in user
 		res.locals.user = foundUser
-		console.log(foundUser.role)
+		// console.log(foundUser.role)
 		next()
 	} catch (err) {
 		// this means there is a authentication error
