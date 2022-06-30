@@ -1,14 +1,12 @@
 const router = require('express').Router()
 const db = require('../models')
 
-
-
 //PUT /bugs/:id -- edit a specific bug
-router.put('/:id', async (req, res) => {
+router.put('/bugs/:id', async (req, res) => {
     // res.send(' edit a /bugs/:id')
     try {
         // find bug id from the url params
-        const id = req.params.id
+        const id = req.params.bugId
         // tell it to return the updated bug
         const options = {new: true}
         // find specific bug using that id & updating using the req.body
@@ -24,6 +22,8 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({msg: 'server error'})
     }
 })
+
+
 
 //DELETE /bugs/:id -- delete a specific bug
 router.delete('/:id', async (req, res) => {

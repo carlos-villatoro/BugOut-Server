@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
         // get specific project id from url params
         const id = req.params.id
         // find that specific project in the db using the id & all users assigned to it
-        const findOneProject = await db.Project.findById(id).populate({ path: 'users' })
+        const findOneProject = await db.Project.findById(id).populate({ path: 'users' }).populate({ path: 'bugs' })
         // send project back to user
         res.json(findOneProject)
     } catch (error) {
@@ -104,6 +104,7 @@ router.post('/:id/bugs', async (req, res) => {
     // send back project with bug added
     res.status(201).json({newBug})
 })
+
 
 //GET /projects/:id/bugs -- gets all the bugs for specific project
 router.get('/:id/bugs', async (req, res) => {
