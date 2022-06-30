@@ -1,17 +1,7 @@
 const router = require('express').Router()
 const db = require('../models')
 
-//GET /bugs -- gets all the bugs 
-router.get('/', async (req, res) => {
-    try {
-        //find all bugs in the db
-        const findAllBugs = await db.Bug.find({})
-        //send them to the client
-        res.json(findAllBugs)
-    } catch (error) {
-        res.status(500).json({ msg: 'server error' })
-    }
-})
+
 
 //PUT /bugs/:id -- edit a specific bug
 router.put('/:id', async (req, res) => {

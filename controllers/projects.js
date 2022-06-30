@@ -23,9 +23,9 @@ router.post('/', async (req, res) => {
         // console.log(req.body)
         const assignedUsers = req.body.users
         for (const user of assignedUsers) {
-            // console.log(user)
-            const foundUser = await db.User.findById({_id: user})
-            // console.log(foundUser)
+            console.log("🥶🥶 this is user",user)
+            const foundUser = await db.User.findById({_id: user._id})
+            console.log("🧐🧐",foundUser)
             foundUser.projects.push(newProject)
             await foundUser.save()
         }
@@ -103,6 +103,20 @@ router.post('/:id/bugs', async (req, res) => {
     await newBug.save()
     // send back project with bug added
     res.status(201).json({newBug})
+})
+
+//GET /projects/:id/bugs -- gets all the bugs for specific project
+router.get('/:id/bugs', async (req, res) => {
+    try {
+        console.log(req.params)
+        //find all bugs in the db
+        const findAllBugs = await db.Bug.find({"project": req.params.id})
+        console.log(findAllBugs)
+        //send them to the client
+        res.json(findAllBugs)
+    } catch (error) {
+        res.status(500).json({ msg: 'server error' })
+    }
 })
 
 module.exports = router

@@ -103,17 +103,15 @@ router.get('/', async (req, res) => {
 	const users = await db.User.find({})
 	res.json(users)
 })
+
 // GET /users/auth-locked -- checks users credentials and only send back privileged information if the user is logged in properly
-
-
-
 router.get('/profile', authLockedRoute, async (req, res) => {
 	// console.log('current user is:', res.locals.user)ß
 	// res.json({ msg: 'welcome to the secret auth-locked route 👋' })
 	const userId = res.locals.user._id
 	// console.log(res.locals.user._id)
 	const user = await db.User.findById(userId).populate({path: 'projects'})
-	// console.log(user)
+	// console.log(userId)
 	res.json(user)
 })
 
