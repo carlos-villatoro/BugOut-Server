@@ -109,7 +109,7 @@ router.post('/:id/bugs', async (req, res) => {
 //GET /projects/:id/bugs -- gets all the bugs for specific project
 router.get('/:id/bugs', async (req, res) => {
     try {
-        console.log(req.params)
+        // console.log(req.params)
         //find all bugs in the db
         const findAllBugs = await db.Bug.find({"project": req.params.id})
         console.log(findAllBugs)
