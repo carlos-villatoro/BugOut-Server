@@ -22,16 +22,21 @@ router.post('/', async (req, res) => {
         const newProject = await db.Project.create(req.body)
         console.log(req.body.manager)
         const assignedUsers = req.body.users
+        // for each user stored in project's users array
         for (const user of assignedUsers) {
-            console.log("🥶🥶 this is user",user)
+            // console.log("🥶🥶 this is user",user)
+            // find the user
             const foundUser = await db.User.findById({_id: user})
-            console.log("🧐🧐",foundUser)
+            // console.log("🧐🧐",foundUser)
+            // add the project to the user's projects array
             foundUser.projects.push(newProject)
             await foundUser.save()
         }
         const manager = req.body.manager
         // console.log(manager)
+        // find manager
         const foundManager = await db.User.findById({_id: manager})
+        // add project to manager's projects array
         foundManager.projects.push(newProject)
         await foundManager.save()
         // // show it to user
