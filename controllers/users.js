@@ -115,7 +115,7 @@ router.get('/profile', authLockedRoute, async (req, res) => {
 	// res.json({ msg: 'welcome to the secret auth-locked route 👋' })
 	const userId = res.locals.user._id
 	// console.log(res.locals.user._id)
-	const user = await db.User.findOne(userId).populate({path: 'projects'})
+	const user = await db.User.findById(userId).populate({path: 'projects'})
 	// console.log(userId)
 	res.json(user)
 })
