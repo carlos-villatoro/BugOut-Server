@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
 	role: {
 		type: String,
 		required: true
+	},
+	checked: {
+		type: Boolean,
+		default: false
 	}
 }, {
 	timestamps: true
