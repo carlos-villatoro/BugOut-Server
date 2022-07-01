@@ -20,11 +20,11 @@ router.post('/', async (req, res) => {
         // console.log(req.body)
         //create the project in the db
         const newProject = await db.Project.create(req.body)
-        // console.log(req.body)
+        console.log(req.body.manager)
         const assignedUsers = req.body.users
         for (const user of assignedUsers) {
             console.log("🥶🥶 this is user",user)
-            const foundUser = await db.User.findById({_id: user._id})
+            const foundUser = await db.User.findById({_id: user})
             console.log("🧐🧐",foundUser)
             foundUser.projects.push(newProject)
             await foundUser.save()
@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
         const foundManager = await db.User.findById({_id: manager})
         foundManager.projects.push(newProject)
         await foundManager.save()
-        // show it to user
+        // // show it to user
         res.status(201).json(newProject)
     } catch (error) {
         console.log(error)
